@@ -3,11 +3,10 @@ package cache.config;
 import java.util.List;
 
 /**
- * Holds the entire cache hierarchy configuration.
- * Deserialized from JSON (list of levels).
+ * Container for the full cache hierarchy configuration.
+ * Holds all levels defined in the JSON configuration file.
  */
 public class CacheConfig {
-
     public List<CacheLevelConfig> levels;
 
     @Override
@@ -18,5 +17,4 @@ public class CacheConfig {
         }
         return sb.toString();
     }
-
 }
