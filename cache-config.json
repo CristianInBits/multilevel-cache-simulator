@@ -1,0 +1,20 @@
+{
+    "levels": [
+        {
+            "name": "L1",
+            "size": 32768,
+            "blockSize": 64,
+            "associativity": 4,
+            "latency": 1,
+            "replacementPolicy": "LRU"
+        },
+        {
+            "name": "L2",
+            "size": 262144,
+            "blockSize": 64,
+            "associativity": 8,
+            "latency": 10,
+            "replacementPolicy": "FIFO"
+        }
+    ]
+}
