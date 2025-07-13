@@ -3,6 +3,7 @@ package cache;
 import cache.config.CacheConfig;
 import cache.config.CacheLevelConfig;
 import cache.utils.TraceReader;
+import cache.simulator.CacheLevel;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -40,6 +41,15 @@ public class Main {
             System.out.println("Trace loaded: " + addresses.size() + " addresses.");
             System.out.println("First 5 addresses:");
             addresses.stream().limit(5).forEach(addr -> System.out.printf("  0x%X\n", addr));
+
+            CacheLevel l1 = new CacheLevel(config.levels.get(0));
+
+            for (long addr : addresses) {
+                boolean hit = l1.access(addr);
+                System.out.printf("Access 0x%X => %s\n", addr, hit ? "HIT" : "MISS");
+            }
+
+            l1.printStats();
 
         } catch (Exception e) {
             System.err.println("Error:");
