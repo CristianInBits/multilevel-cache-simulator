@@ -32,7 +32,7 @@ mvn clean install
 ### ▶️ To run
 
 ```bash
-mvn exec:java -Dexec.mainClass="cache.Main"
+mvn exec:java -Dexec.mainClass="cache.Main" -Dexec.args="cache-config.json traces/sample_trace.txt"
 ```
 
 ## 🧾 Example Output
