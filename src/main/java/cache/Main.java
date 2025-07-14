@@ -44,11 +44,22 @@ public class Main {
 
             CacheLevel l1 = new CacheLevel(config.levels.get(0));
 
+            int total = 0;
             for (long addr : addresses) {
                 boolean hit = l1.access(addr);
                 System.out.printf("Access 0x%X => %s\n", addr, hit ? "HIT" : "MISS");
+                total++;
             }
 
+            
+            System.out.println("\n=== Simulation Complete ===");
+            System.out.println("Total accesses: " + total);
+            System.out.println("Hits: " + l1.getHits());
+            System.out.println("Misses: " + l1.getMisses());
+            
+            double hitRate = total == 0 ? 0.0 : (100.0 * l1.getHits() / total);
+            System.out.printf("Hit rate: %.2f%%\n", hitRate);
+            
             l1.printStats();
 
         } catch (Exception e) {
