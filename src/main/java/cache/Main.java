@@ -3,7 +3,8 @@ package cache;
 import cache.config.CacheConfig;
 import cache.config.CacheLevelConfig;
 import cache.utils.TraceReader;
-import cache.simulator.CacheLevel;
+import cache.simulator.CacheHierarchy;
+//import cache.simulator.CacheLevel;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -42,29 +43,23 @@ public class Main {
             System.out.println("First 5 addresses:");
             addresses.stream().limit(5).forEach(addr -> System.out.printf("  0x%X\n", addr));
 
-            CacheLevel l1 = new CacheLevel(config.levels.get(0));
+            CacheHierarchy hierarchy = new CacheHierarchy(config);
 
-            int total = 0;
             for (long addr : addresses) {
-                boolean hit = l1.access(addr);
-                System.out.printf("Access 0x%X => %s\n", addr, hit ? "HIT" : "MISS");
-                total++;
+
+                hierarchy.access(addr);
             }
 
-            
             System.out.println("\n=== Simulation Complete ===");
-            System.out.println("Total accesses: " + total);
-            System.out.println("Hits: " + l1.getHits());
-            System.out.println("Misses: " + l1.getMisses());
-            
-            double hitRate = total == 0 ? 0.0 : (100.0 * l1.getHits() / total);
-            System.out.printf("Hit rate: %.2f%%\n", hitRate);
-            
-            l1.printStats();
+            System.out.println("Total accesses: " + hierarchy.getTotalAccesses());
+            hierarchy.printStats();
+
+            System.out.printf("Overall L1 Hit Rate: %.2f%%\n", hierarchy.getOverallHitRate());
 
         } catch (Exception e) {
             System.err.println("Error:");
             e.printStackTrace();
         }
     }
+
 }
